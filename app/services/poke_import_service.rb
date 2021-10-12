@@ -1,12 +1,24 @@
 class PokeImportService
+  # TODO: rspec test
+
+  def import_pokemon_list(limit = 10, offset = 0)
+    # change the limit to 1200 to have all pokemons in database
+    import_fetched_resources('pokemon', limit: limit, offset: offset)
+  end
+
+  def import_type_list(limit = 11, offset = 0)
+    import_fetched_resources('type', limit: limit, offset: offset)
+  end
 
   def fetch_resource(resource_name, id_or_name: nil, limit: 10, offset: 0)
     request_url = "#{ENV['BASE_URI']}/#{resource_name}"
     request_url +=
       if id_or_name
         "/#{id_or_name}"
+        # this url is made to have specifics request, like one pokemon or one type
       else
         "?limit=#{limit}&offset=#{offset}"
+        # this part of the url set the limit of resources we want to fetch
       end
     response = HTTParty.get(request_url)
     JSON.parse(response.body, object_class: OpenStruct)
@@ -25,31 +37,30 @@ class PokeImportService
     fetch_resource('type', limit: limit, offset: offset)
   end
 
+  def import_fetched_resources(resource_name, limit: 10, offset: 0)
+    fetched_resource = send("fetch_#{resource_name}_list", limit, offset)
+    fetched_resource.results.each do |p|
+      send("import_one_#{resource_name}", p.name)
+    end
+  end
 
-  # TODO: refacto old version (block in next comment)
-  # def create_pokemon(id_or_name)
-  #   request_url = api_connection(ressource: 'pokemon', id_or_name: id_or_name)
-  #   parsed = JSON.parse(request_url)
-  #   Pokemon.create_with(
-  #     name: parsed['name'],
-  #     num: parsed['id'],
-  #     sprite: parsed['sprites']['front_default'],
-  #     # types: import_type(parsed['types']),
-  #     height: parsed['height'],
-  #     weight: parsed['weight']
-  #   ).find_or_create_by(
-  #     name: parsed['name']
-  #   )
-  # end
-  #
-  # def import_pokemon_list
-  #   request_url = api_connection(ressource: 'pokemon')
-  #   parsed = JSON.parse(request_url)
-  #   parsed['results'].each do |p|
-  #     create_pokemon(p['name'])
-  #   end
-  # end
+  def import_one_pokemon(id_or_name)
+    fetched_pokemon = fetch_one_pokemon(id_or_name)
 
+    Pokemon.find_or_create_by(name: fetched_pokemon.name) do |p|
+      p.num = fetched_pokemon.id
+      p.sprite = fetched_pokemon.sprites.front_default
+      p.height = fetched_pokemon.height
+      p.weight = fetched_pokemon.weight
+      p.types = get_types(fetched_pokemon.types)
+    end
+  end
 
+  def import_one_type(id_or_name)
+    Type.find_or_create_by(name: id_or_name)
+  end
 
+  def get_types(fetch_types)
+    fetch_types.map { |t| Type.find_or_create_by!(name: t.type.name) }
+  end
 end
