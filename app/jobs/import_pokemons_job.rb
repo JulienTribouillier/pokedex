@@ -1,8 +1,8 @@
 class ImportPokemonsJob < ApplicationJob
   queue_as :default
 
-  def perform
+  def perform(limit)
     poke_api = PokeImportService.new
-    poke_api.import_pokemon_list(1200)
+    poke_api.import_pokemon_list(limit)
   end
 end
