@@ -1,0 +1,20 @@
+<div class="card mx-auto shadow-lg p-3 mb-5 bg-white rounded" style="width: 30rem;">
+  <%= image_tag @pokemon.sprite , :class => "card-img-top"%>
+  <div class="card-body">
+    <h5 class="card-title text-end"><%= @pokemon.name %></h5>
+    <p class="card-text text-start">ID: <%= @pokemon.num %> </p>
+    <p class="card-text text-start">TAILLE: <%= @pokemon.height %> cm</p>
+    <p class="card-text text-start">POID: <%= @pokemon.weight %> kg </p>
+    <p class="card-text text-start">TYPES:
+      <% @pokemon.types.each do |type| %>
+        <%= type.name %>
+        <% concat('|') if @pokemon.types.last != type %>
+      <% end %>
+    </p>
+    <div class="d-flex justify-content-center">
+      <%= link_to "revenir au pokedex", pokemons_url, :class => "btn btn-warning mx-auto"%>
+    </div>
+  </div>
+</div>
+
+
