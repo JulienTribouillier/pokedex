@@ -3,7 +3,7 @@
   <div class="card-body">
     <h5 class="card-title text-end"><%= @pokemon.name %></h5>
     <p class="card-text text-start">ID: <%= @pokemon.num %> </p>
-    <p class="card-text text-start">TAILLE: <%= @pokemon.height %> cm</p>
+    <p class="card-text text-start">TAILLE: <%= @pokemon.height %> dcm</p>
     <p class="card-text text-start">POID: <%= @pokemon.weight %> kg </p>
     <p class="card-text text-start">TYPES:
       <% @pokemon.types.each do |type| %>
@@ -12,7 +12,8 @@
       <% end %>
     </p>
     <div class="d-flex justify-content-center">
-      <%= link_to "revenir au pokedex", pokemons_url, :class => "btn btn-warning mx-auto"%>
+      <%= link_to "revenir au pokedex",:back, :class => "btn btn-warning mx-auto"%>
+
     </div>
   </div>
 </div>

@@ -21,6 +21,8 @@ gem 'httparty'
 gem 'awesome_print'
 
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+
+gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
