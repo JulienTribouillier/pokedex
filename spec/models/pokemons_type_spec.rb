@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe PokemonsType, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'join table association' do
+    it { should belong_to(:pokemon) }
+    it { should belong_to(:type) }
+  end
 end
