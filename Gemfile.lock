@@ -120,6 +120,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
+    pg (1.2.3)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -249,6 +250,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  pg
   pry (~> 0.13.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
@@ -266,7 +268,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 3.0.0p0
 
 BUNDLED WITH
    2.2.26
