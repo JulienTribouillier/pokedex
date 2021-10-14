@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Api::V1::PokemonsController < ApplicationController
   def index
-    pokemons = Pokemon.includes(:types).select(:id, :name).order(:order)
+    pokemons = Pokemon.includes(:types).select(:id, :name).order(:num)
     render json: pokemons.to_json(only: %i[id name], include: :types)
   end
 
