@@ -2,11 +2,11 @@ class PokeImportService
   # TODO: rspec test
 
   def import_pokemon_list(limit = 10, offset = 0)
-    # change the limit to 1200 to have all pokemons in database
+    # change the limit to -1 to have all pokemons in database, better run background job
     import_fetched_resources('pokemon', limit: limit, offset: offset)
   end
 
-  def import_type_list(limit = 11, offset = 0)
+  def import_type_list(limit = 20, offset = 0)
     import_fetched_resources('type', limit: limit, offset: offset)
   end
 
