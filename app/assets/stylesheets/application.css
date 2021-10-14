@@ -40,12 +40,12 @@
 .pagination > .active > a
 {
     color: white;
-    background-color: #f0ad4e  !Important;
-    border: solid 1px #f0ad4e  !Important;
+    background-color: #f0ad4e;
+    border: solid 1px #f0ad4e;
 }
 
 .pagination > .active > a:hover
 {
-    background-color: #f0ad4e  !Important;
+    background-color: #f0ad4e;
     border: solid 1px #5A4181;
 }
