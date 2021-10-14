@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe ImportPokemonsJob, type: :job do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'when limit = 10'
+  it 'import 10 pokemon in database' do
+    job = ImportPokemonsJob.new
+    job.perform(10)
+    expect(Pokemon.count).to eq(10)
+  end
 end

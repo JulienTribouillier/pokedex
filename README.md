@@ -65,7 +65,7 @@ rails console
 ```
 ```shell
 >  pokeapi = ImportPokemonsJob.new
->  pokeapi.poke_import_service
+>  pokeapi.perform(1200)
 
 ```
 
@@ -117,7 +117,7 @@ To run this project, you will need to add the following environment variables to
   
 ## Demo
 
-You can see a running app [here](https://pokedex-staging.herokuapp.com/)
+You can see a running app [here](https://pokedex-ror-production.herokuapp.com/)
 
-Or you can go directly to API [here](https://pokedex-staging.herokuapp.com/api/v1/pokemons)
+Or you can go directly to API [here](https://pokedex-ror-production.herokuapp.com//api/v1/pokemons)
 
