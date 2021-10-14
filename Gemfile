@@ -31,7 +31,7 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-
+gem 'sidekiq'
 group :production do
   gem 'pg'
 end
