@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row col-9 mx-auto">
+    <% @pokemon.each do |pokemon| %>
+      <div class="card col-3 m-3 hover" style="width: 18rem;">
+        <% if pokemon.sprite.present? %>
+          <%= image_tag pokemon.sprite , :class => "card-img-top"%>
+        <% else %>
+          <div class="card-img-top"></div>
+        <%end %>
+        <div class="card-body">
+          <h5 class="card-title text-end"><%= pokemon.name %></h5>
+          <p class="card-text text-start">ID: <%= pokemon.num %> </p>
+          <p class="card-text text-start">TYPE:
+            <% pokemon.types.each do |t| %>
+              <%= t.name %>
+            <% end %>
+          </p>
+          <div class="d-flex justify-content-center">
+            <%= link_to "voir le pokemon", pokemon_path(pokemon.id), :class => "btn btn-warning mx-auto"%>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
