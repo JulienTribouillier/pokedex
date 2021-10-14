@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Type.destroy_all
+Pokemon.destroy_all
+
+poke_service = PokeImportService.new
+
+# poke_service.import_type_list(11)
+# puts("#{Type.count} Types have been created successfully !")
+
+poke_service.import_pokemon_list(20)
+puts("#{Pokemon.count} Pokemons have been created successfully !")
