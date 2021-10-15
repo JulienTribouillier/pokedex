@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :pokemons, only: %i[index show], params: :num
+      # resources :pokemons, only: %i[index show], params: :num
+      get '/pokemons/', to: 'pokemons#index'
+      resources :pokemons, only: [:show], params: :num
     end
   end
 end
