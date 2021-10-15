@@ -32,5 +32,10 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Create env file
+      run: |
+          touch .env
+          echo BASE_URI=${{ secrets.BASE_URI }} >> .env
+          cat .env
     - name: Run tests
       run: bundle exec rspec
