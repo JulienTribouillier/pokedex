@@ -61,8 +61,9 @@ class PokeImportService
 
   def import_one_pokemon(id_or_name)
     fetched_pokemon = fetch_one_pokemon(id_or_name)
-
-    Pokemon.find_or_create_by(name: fetched_pokemon.name) do |p|
+    pokemon = Pokemon.find_by(name: fetched_pokemon.name) || Pokemon.new
+    pokemon.tap do |p|
+      p.name = fetched_pokemon.name
       p.num = fetched_pokemon.id
       p.sprite = fetched_pokemon.sprites.front_default
       p.height = fetched_pokemon.height
@@ -70,6 +71,7 @@ class PokeImportService
       p.types = get_types(fetched_pokemon.types)
       p.abilities = get_abilities(fetched_pokemon.abilities)
     end
+    pokemon.save
   end
 
   def import_one_type(id_or_name)
