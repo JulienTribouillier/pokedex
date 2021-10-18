@@ -105,11 +105,11 @@ RSpec.describe PokeImportService, type: :request do
   end
 
   describe '#import_one_type' do
-    it 'import one Type in database with name Toto' do
+    it 'import type with good id' do
       @poke_api.fetch_resource('type')
-      @poke_api.import_one_type('Toto')
+      @poke_api.import_one_type('1')
       expect(Type.count).to eq(1)
-      expect(Type.last.name).to eq('Toto')
+      expect(Type.last.name).to eq('normal')
     end
 
     it 'returns a Type class' do

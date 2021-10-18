@@ -7,7 +7,8 @@ class Api::V1::PokemonsController < ApplicationController
 
   def show
     pokemon = Pokemon.includes(:types).find_by(num: params[:id])
-    render json: pokemon.to_json(include: { types: { only: :name } }, except: %i[created_at updated_at] )
+    render json: pokemon.to_json(include: { types: { only: :name }, abilities: { only: :name } },
+                                 except: %i[created_at updated_at] )
   end
 end
 

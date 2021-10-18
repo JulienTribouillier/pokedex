@@ -1,13 +1,27 @@
 class PokeImportService
-  # TODO: rspec test
 
-  def import_pokemon_list(limit = 10, offset = 0)
-    # change the limit to -1 to have all pokemons in database, better run background job
-    import_fetched_resources('pokemon', limit: limit, offset: offset)
+  def fetch_pokemon_list(limit = 10, offset = 0)
+    fetch_resource('pokemon', limit: limit, offset: offset)
   end
 
-  def import_type_list(limit = 20, offset = 0)
-    import_fetched_resources('type', limit: limit, offset: offset)
+  def fetch_one_pokemon(id_or_name)
+    fetch_resource('pokemon', id_or_name: id_or_name)
+  end
+
+  def fetch_one_type(id_or_name)
+    fetch_resource('type', id_or_name: id_or_name)
+  end
+
+  def fetch_type_list(limit = 25, offset = 0)
+    fetch_resource('type', limit: limit, offset: offset)
+  end
+
+  def fetch_one_ability(id_or_name)
+    fetch_resource('ability', id_or_name: id_or_name)
+  end
+
+  def fetch_ability_list(limit = -1, offset = 0)
+    fetch_resource('ability', limit: limit, offset: offset)
   end
 
   def fetch_resource(resource_name, id_or_name: nil, limit: 10, offset: 0)
@@ -25,16 +39,17 @@ class PokeImportService
     # it seems much more easier to work with OpenStruct object
   end
 
-  def fetch_pokemon_list(limit = 10, offset = 0)
-    fetch_resource('pokemon', limit: limit, offset: offset)
+  def import_pokemon_list(limit = 10, offset = 0)
+    # change the limit to -1 to have all pokemons in database, better run background job
+    import_fetched_resources('pokemon', limit: limit, offset: offset)
   end
 
-  def fetch_one_pokemon(id_or_name)
-    fetch_resource('pokemon', id_or_name: id_or_name)
+  def import_type_list(limit = 20, offset = 0)
+    import_fetched_resources('type', limit: limit, offset: offset)
   end
 
-  def fetch_type_list(limit = 25, offset = 0)
-    fetch_resource('type', limit: limit, offset: offset)
+  def import_ability_list(limit = -1, offset = 0)
+    import_fetched_resources('ability', limit: limit, offset: offset)
   end
 
   def import_fetched_resources(resource_name, limit: 10, offset: 0)
@@ -53,14 +68,25 @@ class PokeImportService
       p.height = fetched_pokemon.height
       p.weight = fetched_pokemon.weight
       p.types = get_types(fetched_pokemon.types)
+      p.abilities = get_abilities(fetched_pokemon.abilities)
     end
   end
 
   def import_one_type(id_or_name)
-    Type.find_or_create_by(name: id_or_name)
+    fetched_type = fetch_one_type(id_or_name)
+    Type.find_or_create_by(name: fetched_type.name)
   end
 
   def get_types(fetch_types)
     fetch_types.map { |t| Type.find_or_create_by!(name: t.type.name) }
+  end
+
+  def import_one_ability(id_or_name)
+    fetched_ability = fetch_one_ability(id_or_name)
+    Ability.find_or_create_by(name: fetched_ability.name)
+  end
+
+  def get_abilities(fetch_abilities)
+    fetch_abilities.map { |t| Ability.find_or_create_by(name: t.ability.name) }
   end
 end

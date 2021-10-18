@@ -40,3 +40,5 @@ yarn-debug.log*
 .yarn-integrity
 .idea
 .env
+/development.sqlite3
+/identifier.sqlite

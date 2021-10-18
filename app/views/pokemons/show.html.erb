@@ -11,6 +11,11 @@
         <% concat('|') if @pokemon.types.last != type %>
       <% end %>
     </p>
+    <p class="card-text text-start">ABILITIES:
+      <% @pokemon.abilities.each do |ability| %>
+        <%= ability.name %>
+        <% concat('|') if @pokemon.abilities.last != ability %>
+      <% end %>
     <div class="d-flex justify-content-center">
       <%= link_to "revenir au pokedex",:back, :class => "btn btn-warning mx-auto"%>
 
